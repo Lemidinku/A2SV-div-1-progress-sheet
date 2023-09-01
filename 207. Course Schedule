@@ -1,0 +1,22 @@
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        adj = defaultdict(set)
+        for u,v in prerequisites:
+            adj[u].add(v)
+
+
+        self.can_finish = True
+        color = [0]*numCourses
+        def dfs(curr):
+            color[curr]=1
+            for neighbor in adj[curr]:
+                if color[neighbor] ==1:
+                    self.can_finish = False
+                    return
+                if color[neighbor]== 0:
+                    dfs(neighbor)
+            color[curr]=2
+        for edge in range(numCourses):
+            if color[edge]==0:
+                dfs(edge)
+        return self.can_finish
