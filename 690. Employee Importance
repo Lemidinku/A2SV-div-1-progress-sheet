@@ -1,0 +1,17 @@
+class Solution:
+    def getImportance(self, employees: List['Employee'], id: int) -> int:
+
+        subordinates = {}
+        importance = {}
+        for emp in employees:
+            subordinates[emp.id]= emp.subordinates
+            importance[emp.id] = emp.importance
+
+
+        def tot_importance(curr):
+            imp = importance[curr]
+
+            for subord in subordinates[curr]:
+                imp += tot_importance(subord)
+            return imp
+        return tot_importance(id)
