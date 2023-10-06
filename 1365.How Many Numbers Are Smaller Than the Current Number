@@ -1,0 +1,18 @@
+class Solution:
+    def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
+        def insert_left(nums,target):
+            left = 0
+            right = len(nums) - 1
+
+            while left <= right:
+                mid = left + (right-left)//2
+                if nums[mid] < target:
+                    left = mid + 1
+                else:right = mid - 1
+
+            return left
+        temp = nums.copy()
+        temp.sort()
+        for i in range(len(nums)):
+            nums[i] = insert_left(temp,nums[i])
+        return nums
