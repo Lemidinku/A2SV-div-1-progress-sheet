@@ -1,0 +1,19 @@
+class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+        word = Counter(s)
+        required = {}
+        result = []
+        leng  = 1
+        for i in range(len(s)):
+            if s[i] in required:
+                required[s[i]]-=1
+            else:
+                required[s[i]] = word[s[i]]-1
+            if required[s[i]]==0: del required[s[i]]
+            if len(required)==0:
+                result.append(leng)
+                leng =1
+            else: 
+                leng+=1
+
+        return result
