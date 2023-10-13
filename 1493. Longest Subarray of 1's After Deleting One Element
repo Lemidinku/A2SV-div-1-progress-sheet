@@ -1,0 +1,13 @@
+class Solution:
+    def longestSubarray(self, nums: List[int]) -> int:
+        table = {0:0, 1:0}
+        l=0
+        max_len = 0
+        for r in range(len(nums)):
+            table[nums[r]] +=1
+            if table[0]>1:
+                table[nums[l]]-=1
+                l+=1
+            max_len = max(max_len,r-l)
+        return max_len
+            
