@@ -1,0 +1,14 @@
+class Solution:
+    def carPooling(self, trips: List[List[int]], capacity: int) -> bool:
+        n = max(trips,key=lambda x: x[2])[2]
+        arr = [0]*(n+1)
+        for numPassengers,start,end in trips:
+            arr[start] += numPassengers
+            arr[end]-= numPassengers
+        pre = []
+        summ = 0
+        for num in arr:
+            summ+=num
+            if summ>capacity: return False
+            pre.append(summ)
+        return True
