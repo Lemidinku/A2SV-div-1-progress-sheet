@@ -1,0 +1,27 @@
+class Solution:
+    def maxSumRangeQuery(self, nums: List[int], requests: List[List[int]]) -> int:
+        arr = nums
+        arr.sort()
+        queries = []
+        lst = [0]*len(nums)
+        for l,r in requests:
+            lst[l] += 1
+            if r+1<len(nums): lst[r+1]-=1
+        pre = []
+        summ = 0
+        for num in lst:
+            summ+=num
+            pre.append(summ)
+        rang = list(range(len(nums)))
+        rang.sort(key= lambda x: pre[x])
+        for a,b in zip(rang,arr):
+            pre[a]=b
+        pre2 = [0]
+        summ=0
+        for num in pre:
+            summ+=num
+            pre2.append(summ)
+        result = 0
+        for l,r in requests:
+            result += pre2[r+1]-pre2[l]
+        return result%(10**9+7)
