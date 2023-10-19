@@ -1,0 +1,12 @@
+class Solution:
+    def subarraysDivByK(self, nums: List[int], k: int) -> int:
+        table = {0:1}
+        summ = 0
+        count = 0
+        for num in nums:
+            summ+=num
+            if summ%k in table: 
+                count+=table[summ%k]
+                table[summ%k]+=1
+            else: table[summ%k]=1
+        return count
