@@ -1,0 +1,13 @@
+class Solution:
+    def isValid(self, s: str) -> bool:
+        mystack = []
+        dic = { "(": ")", "{": "}", "[": "]"}
+        for i in s:
+            if i in dic.keys():
+                mystack.append(i)
+            else:
+                if not mystack: return False
+                temp = mystack.pop()
+                if dic[temp] != i:
+                    return False
+        return len(mystack) == 0
